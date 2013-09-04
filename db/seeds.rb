@@ -46,17 +46,22 @@ require 'csv'
 # percent_publicly_financed_prenatal_care_2005_to_2008
 # percent_teen_births_2005_to_2008
 
-def
-
 
 seed = []
-CSV.foreach('mass_chip_data.csv',
+CSV.foreach('db/mass_chip_data.csv',
   { :headers => true,
     :header_converters => :symbol,
-    :converters => :numeric }) do |row|
+    :converters => :all }) do |row|
 
   #p row
   seed << row
 end
 
-pp seed
+# remove commas and bullshit in numerical data
+seed.each do |s|
+  s.each do |k, v|
+    v = v.gsub(/[$\s\']/, '')
+  end
+end
+
+p seed
