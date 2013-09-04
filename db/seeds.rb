@@ -46,22 +46,17 @@ require 'csv'
 # percent_publicly_financed_prenatal_care_2005_to_2008
 # percent_teen_births_2005_to_2008
 
+def
 
-# begin
 
 seed = []
 CSV.foreach('mass_chip_data.csv',
   { :headers => true,
-    #:header_converters => :downcase,
+    :header_converters => :symbol,
     :converters => :numeric }) do |row|
 
   #p row
   seed << row
 end
 
-# rescue Exception => e
-#   p e.message
-#   p e.backtrace
-# end
-
-p seed
+pp seed
