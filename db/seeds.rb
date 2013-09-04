@@ -8,26 +8,6 @@
 
 require 'csv'
 
-# columns
-#
-# Geography
-# "total pop, year 2005"
-# "age 0-19, year 2005"
-# "age 65+, year 2005"
-# "Per Capita Income, year 2000"
-# "Persons Living Below 200% Poverty, year 2000 "
-# "% all Persons Living Below 200% Poverty Level, year 2000"
-# % adequacy prenatal care (kotelchuck)
-# "% C-section deliveries, 2005-2008"
-# "Number of infant deaths, 2005-2008"
-# "Infant mortality rate (deaths per 1000 live births), 2005-2008"
-# % low birthweight 2005-2008
-# "% multiple births, 2005-2008"
-# "% publicly financed prenatal care, 2005-2008"
-# "% teen births, 2005-2008",,
-
-
-
 # better column names (applied to csv)
 
 # city
@@ -46,22 +26,36 @@ require 'csv'
 # percent_publicly_financed_prenatal_care_2005_to_2008
 # percent_teen_births_2005_to_2008
 
-
-seed = []
-CSV.foreach('db/mass_chip_data.csv',
+# load data into hash
+records = []
+CSV.foreach('db/data/mass_chip_data.csv',
   { :headers => true,
     :header_converters => :symbol,
     :converters => :all }) do |row|
 
   #p row
-  seed << row
+  records << row
 end
 
 # remove commas and bullshit in numerical data
-seed.each do |s|
-  s.each do |k, v|
-    v = v.gsub(/[$\s\']/, '')
+records.each do |record|
+  record.each do |key, value|
+    if value.is_a?(String) and value.match(/[$\s,]/) and key != :city
+      record[key] = value.gsub(/[$\s,]/, '').to_i
+    end
   end
 end
 
-p seed
+# load into db if record dne
+records.each do |record|
+
+  db_record = TownHealthRecord.where(city: record[:city]).first
+
+  if db_record.nil?
+    db_record = TownHealthRecord.new(record.to_hash)
+  else
+    db_record = record.to_hash
+  end
+
+  db_record.save!
+end
