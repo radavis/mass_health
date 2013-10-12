@@ -8,7 +8,7 @@ feature 'user can see the results of a query on the TownHealthRecord database', 
 
   scenario 'user clicks on a query statement' do
     visit root_path
-    click_on 'Cities, by population'
+    click_on 'Population In 2005'
     expect(page).to have_content("Population")
     expect(page).to have_content("Boston")
   end
