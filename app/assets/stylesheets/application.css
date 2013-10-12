@@ -14,7 +14,6 @@
  *= require_tree .
  */
 
-div.progress {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+.container {
+  margin-top: 20px;
 }
