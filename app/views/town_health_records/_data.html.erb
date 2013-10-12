@@ -1,0 +1,32 @@
+<div class="row right">
+
+<% if @results %>
+
+  <% @results.each do |r| %>
+    <div class="city col-md-3">
+      <strong><%= r[:city] %></strong>
+    </div>
+
+    <% value = r[@query].to_f / @max_value.to_f * 100 %>
+    <div class="col-md-8">
+      <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= value %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= value %>%">
+        </div>
+      </div>
+    </div>
+
+    <div class="number col-md-1">
+      <strong>
+        <% formatted_number = r[@query].to_s %>
+        <% if @query.start_with?('percent') or @query.include?('rate') %>
+          <% formatted_number += "%" %>
+        <% end %>
+        <% formatted_number = "$" + formatted_number if @query.include?('income') %>
+        <%= formatted_number %>
+      </strong>
+    </div>
+  <% end %>
+
+<% end %>
+
+</div>

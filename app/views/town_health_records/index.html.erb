@@ -1,0 +1,14 @@
+<div class="col-md-3">
+  <div class="list-group">
+    <h4 class="list-group-item active">Mass Health Data</h4>
+    <% @queries.each do |q| %>
+      <% classes = "list-group-item" %>
+      <% classes += " selected" if @query and q == @query %>
+      <%= link_to q.titleize, town_health_records_path({q: q}), class: classes %>
+    <% end %>
+  </div>
+</div>
+
+<div class="col-md-9">
+  <%= render 'data' %>
+</div>
