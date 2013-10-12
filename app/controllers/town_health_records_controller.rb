@@ -5,7 +5,9 @@ class TownHealthRecordsController < ApplicationController
     @queries.reject! { |q| dont_show.include?(q) }
 
     if @query = params[:q]
-      @results = TownHealthRecord.select(['city', @query]).order(@query + ' desc')
+      @results = TownHealthRecord
+        .select(['city', @query])
+        .order(@query + ' desc')
     end
   end
 end

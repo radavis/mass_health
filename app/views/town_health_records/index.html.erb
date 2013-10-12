@@ -5,12 +5,17 @@
 
 <% if @results %>
   <table class="results">
-    <tr><th>City</th><th><%= @query.titleize %></th></tr>
+    <tr>
+      <th>City</th>
+      <th><%= @query.titleize %></th>
+    </tr>
+
     <% @results.each do |r| %>
       <tr>
         <td><%= r[:city] %></td>
         <td><%= r[@query] %></td>
       </tr>
     <% end %>
+
   </table>
 <% end %>
