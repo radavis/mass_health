@@ -1,21 +1,9 @@
+<div class="col-md-3">
 <% @queries.each do |q| %>
   <%= link_to q.titleize, town_health_records_path({q: q}) %><br />
 <% end %>
+</div>
 
-
-<% if @results %>
-  <table class="results">
-    <tr>
-      <th>City</th>
-      <th><%= @query.titleize %></th>
-    </tr>
-
-    <% @results.each do |r| %>
-      <tr>
-        <td><%= r[:city] %></td>
-        <td><%= r[@query] %></td>
-      </tr>
-    <% end %>
-
-  </table>
-<% end %>
+<div class="col-md-9">
+  <%= render 'data2' %>
+</div>

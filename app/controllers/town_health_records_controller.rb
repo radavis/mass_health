@@ -8,6 +8,9 @@ class TownHealthRecordsController < ApplicationController
       @results = TownHealthRecord
         .select(['city', @query])
         .order(@query + ' desc')
+
+      #binding.pry
+      @max_value = @results.first[@query]
     end
   end
 end
