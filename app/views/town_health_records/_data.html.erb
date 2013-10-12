@@ -1,27 +1,20 @@
+<div class="row">
+
 <% if @results %>
-  <table class="table table-condensed">
-    <tr>
-      <th>City</th>
-      <th><%= @query.titleize %></th>
-      <th></th>
-    </tr>
+  <% @results.each do |r| %>
+    <!-- bar graph -->
+    <% value = r[@query].to_f / @max_value.to_f * 100 %>
+    <div class="col-md-3"><strong><%= r[:city] %></strong></div>
+    <div class="col-md-9">
+      <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= value %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= value %>%">
+          <%= r[@query] %>
+        </div>
+      </div>
+    </div>
+    <br />
+  <% end %>
 
-    <% @results.each do |r| %>
-      <tr>
-        <td><%= r[:city] %></td>
-        <td><%= r[@query] %></td>
-
-        <!-- bar graph -->
-        <% value = r[@query] / @max_value.to_f * 100 %>
-        <td>
-          <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= value %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= value %>%">
-            </div>
-          </div>
-        </td>
-
-      </tr>
-    <% end %>
-
-  </table>
 <% end %>
+
+</div>

@@ -8,8 +8,13 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require bootstrap.min
  *= require bootstrap-theme.min
+ *= require_self
  *= require_tree .
  */
+
+div.progress {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
