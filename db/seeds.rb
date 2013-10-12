@@ -32,12 +32,10 @@ CSV.foreach('db/data/mass_chip_data.csv',
   { :headers => true,
     :header_converters => :symbol,
     :converters => :all }) do |row|
-
-  #p row
-  records << row
+  records << row.to_hash
 end
 
-# remove commas and bullshit in numerical data
+# remove commas in numerical data
 records.each do |record|
   record.each do |key, value|
     if value.is_a?(String) and value.match(/[$\s,]/) and key != :city
@@ -46,16 +44,9 @@ records.each do |record|
   end
 end
 
-# load into db if record dne
+# load into db
 records.each do |record|
-
-  db_record = TownHealthRecord.where(city: record[:city]).first
-
-  if db_record.nil?
-    db_record = TownHealthRecord.new(record.to_hash)
-  else
-    db_record = record.to_hash
-  end
-
+  db_record = TownHealthRecord.find_or_initialize_by(city: record[:city])
+  db_record.update_attributes(record)
   db_record.save!
 end
