@@ -4,7 +4,9 @@
   <% @results.each do |r| %>
     <!-- bar graph -->
     <% value = r[@query].to_f / @max_value.to_f * 100 %>
-    <div class="col-md-3"><strong><%= r[:city] %></strong></div>
+    <div class="city col-md-3">
+      <strong><%= r[:city] %></strong>
+    </div>
     <div class="col-md-9">
       <div class="progress">
         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= value %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= value %>%">

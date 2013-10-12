@@ -1,0 +1,9 @@
+div.city,
+div.progress {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+div.city {
+  text-align: right;
+}
